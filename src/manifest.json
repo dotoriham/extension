@@ -10,7 +10,12 @@
   "chrome_url_overrides": {
     "newtab": "newtab.html"
   },
-  "permissions": ["tabs", "https://dotoriham.com/", "https://dotoriham.kr/"],
+  "permissions": [
+    "scripting",
+    "tabs",
+    "https://dotoriham.com/",
+    "https://dotoriham.kr/"
+  ],
   "icons": {
     "128": "icon-128.png"
   },
