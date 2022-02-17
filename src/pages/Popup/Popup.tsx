@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import TodoInsert from './components/TodoInsert';
 import TodoList from './components/TodoList';
+import GlobalStyles from './globalStyles';
 
 export interface TodoType {
   id: number;
@@ -95,6 +96,7 @@ const Popup = () => {
 
   return (
     <PopupBlock>
+      <GlobalStyles />
       <div className="title">오늘 할일sd</div>
       <button onClick={login}>로그인</button>
       <TodoInsert onInsert={onInsert} />
