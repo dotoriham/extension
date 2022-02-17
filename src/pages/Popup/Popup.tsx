@@ -10,24 +10,38 @@ export interface TodoType {
   done: boolean;
 }
 
+function getStorage() {
+  const accessToken = localStorage.getItem('accessToken');
+  return accessToken;
+}
+
 function executeScript(msg: any, callback: any) {
   if (chrome?.tabs?.query) {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tab) {
       const tabId: any = tab[0].id;
-      const exec = chrome.tabs.executeScript;
+      const exec = chrome.scripting.executeScript;
+      console.log('exec', exec);
+      console.log('tabId', tabId);
 
-      console.log(exec);
-      exec(tabId, { code: `var msg = ${JSON.stringify(msg)}` }, function () {
-        if (chrome.runtime.lastError) {
-          console.log(chrome.runtime.lastError.message);
-          callback && callback(undefined);
-          return;
-        }
+      exec(
+        { target: { tabId: tabId }, function: getStorage },
+        function (response) {
+          console.log(response);
+          callback && callback(response[0].result);
+        },
+      );
 
-        exec(tabId, { file: 'inject.js' }, function (response) {
-          callback && callback(response[0]);
-        });
-      });
+      //   exec(tabId, { code: `var msg = ${JSON.stringify(msg)}` }, function () {
+      //     if (chrome.runtime.lastError) {
+      //       console.log(chrome.runtime.lastError.message);
+      //       callback && callback(undefined);
+      //       return;
+      //     }
+
+      //     exec(tabId, { file: 'inject.js' }, function (response) {
+      //       callback && callback(response[0]);
+      //     });
+      //   });
     });
   }
 }
