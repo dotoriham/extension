@@ -13,6 +13,7 @@
     "prettier": "prettier --write '**/*.{js,jsx,css,html}'"
   },
   "dependencies": {
+    "@atlaskit/tree": "^8.6.0",
     "@hot-loader/react-dom": "^17.0.1",
     "@types/chrome": "0.0.132",
     "@types/react": "^17.0.2",
@@ -23,6 +24,7 @@
     "react-dom": "^17.0.1",
     "react-hot-loader": "^4.13.0",
     "react-icons": "^4.2.0",
+    "react-query": "^3.34.15",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {

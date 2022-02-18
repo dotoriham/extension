@@ -14,6 +14,7 @@ function DotoriForm(): ReactElement {
 
 const DotoriFormBlock = styled.div`
   display: flex;
+  height: 100%;
 `;
 
 export default DotoriForm;
