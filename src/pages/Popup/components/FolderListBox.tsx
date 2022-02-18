@@ -7,7 +7,7 @@ import Tree, {
 import React, { ReactElement, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import useFolderListQuery from '../hooks/useFolderListQuery';
-import { scrollbarDelete } from '../lib/styles/utilStyles';
+import { scrollbar } from '../lib/styles/utilStyles';
 import FolderItemIcon from './FolderItemIcon';
 
 function FolderListBox(): ReactElement {
@@ -86,10 +86,10 @@ function FolderListBox(): ReactElement {
 }
 
 const FolderListBoxStyled = styled.div`
-  width: 170px;
-  margin: 24px;
+  height: 280px;
   overflow: auto;
-  ${scrollbarDelete}
+  margin-bottom: 20px;
+  ${scrollbar};
 `;
 
 const FolderListWrapper = styled.div`
@@ -97,7 +97,7 @@ const FolderListWrapper = styled.div`
 `;
 
 const FolderItemWrapper = styled.div`
-  width: 166px;
+  width: 156px;
 `;
 
 const FolderRightBox = styled.div`
