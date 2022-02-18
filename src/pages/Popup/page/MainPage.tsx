@@ -6,13 +6,20 @@ import LoginForm from '../components/LoginForm';
 
 interface MainPageProps {
   isLogin: boolean;
+  currentPageUrl: string;
 }
 
-function MainPage({ isLogin }: MainPageProps): ReactElement {
+function MainPage({ isLogin, currentPageUrl }: MainPageProps): ReactElement {
   return (
     <MainPageContainer>
       <Aside />
-      <FormBlock>{isLogin ? <DotoriForm /> : <LoginForm />}</FormBlock>
+      <FormBlock>
+        {isLogin ? (
+          <DotoriForm currentPageUrl={currentPageUrl} />
+        ) : (
+          <LoginForm />
+        )}
+      </FormBlock>
     </MainPageContainer>
   );
 }

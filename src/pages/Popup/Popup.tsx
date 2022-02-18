@@ -20,8 +20,7 @@ function executeScript(callback: any) {
       exec(
         { target: { tabId: tabId }, function: getTokens },
         function (response) {
-          console.log(response);
-          callback && callback(response[0].result); // 있을 경우에만 리턴하도록 설정 없으면 아무것도 리턴 안하니간 local에 저장 안될테니 걱정 ㄴㄴ;
+          callback && callback(response[0].result, tab[0].url); // 있을 경우에만 리턴하도록 설정 없으면 아무것도 리턴 안하니간 local에 저장 안될테니 걱정 ㄴㄴ;
         },
       );
     });
@@ -30,6 +29,7 @@ function executeScript(callback: any) {
 
 function Popup(): ReactElement {
   const [isLogin, setIsLogin] = useState(false);
+  const [currentPageUrl, setCurrentPageUrl] = useState('');
 
   useEffect(() => {
     const userToken = localStorage.getItem('userToken');
@@ -46,8 +46,10 @@ function Popup(): ReactElement {
 
   useEffect(() => {
     const fetch = () => {
-      executeScript(async function (response: any) {
+      executeScript(async function (response: any, url: string) {
         console.log('response', response);
+        console.log('url', url);
+        setCurrentPageUrl(url);
         localStorage.setItem('userToken', JSON.stringify(response));
       });
     };
@@ -78,7 +80,7 @@ function Popup(): ReactElement {
     <QueryClientProvider client={queryClient}>
       <PopupContainer>
         <GlobalStyles />
-        <MainPage isLogin={isLogin} />
+        <MainPage isLogin={isLogin} currentPageUrl={currentPageUrl} />
       </PopupContainer>
     </QueryClientProvider>
   );

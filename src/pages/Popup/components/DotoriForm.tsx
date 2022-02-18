@@ -1,9 +1,20 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useEffect } from 'react';
 import styled from 'styled-components';
+import { getMetaDataByUrl } from '../lib/utils/metaHelper';
 import DotoriInputBox from './DotoriInputBox';
 import FolderListBox from './FolderListBox';
 
-function DotoriForm(): ReactElement {
+interface DotoriFormProps {
+  currentPageUrl: string;
+}
+
+function DotoriForm({ currentPageUrl }: DotoriFormProps): ReactElement {
+  const metaData = getMetaDataByUrl(currentPageUrl);
+
+  useEffect(() => {
+    metaData.then((res) => console.log('meta', res));
+  }, [currentPageUrl]);
+
   return (
     <DotoriFormBlock>
       <DotoriInputBox />
