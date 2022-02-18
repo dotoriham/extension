@@ -26,6 +26,8 @@ const ArrowButton = styled.button<{ isShow: boolean }>`
   }
 `;
 
+const Image = styled.img``;
+
 function FolderItemIcon({
   item,
   onExpand,
@@ -40,7 +42,11 @@ function FolderItemIcon({
           item.isExpanded ? onCollapse(item.id) : onExpand(item.id)
         }
       >
-        {item.isExpanded ? <div>밑</div> : <div>옆</div>}
+        {item.isExpanded ? (
+          <Image src="https://images.velog.io/images/ksmfou98/post/47ee02fd-78f1-43b6-81d9-881d6e3b3ffa/Arrow_down_s.png" />
+        ) : (
+          <Image src="https://images.velog.io/images/ksmfou98/post/1d15c5b9-70eb-4b16-b20f-b15c8f602cf1/Arrow_side_s.png" />
+        )}
       </ArrowButton>
       <FolderEmoji emoji={item.data.emoji} />
     </FolderItemIconWrapper>

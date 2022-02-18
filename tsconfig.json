@@ -15,6 +15,6 @@
     "noEmit": false,
     "jsx": "react"
   },
-  "include": ["src", "build/inject.js"],
+  "include": ["src", "build/inject.js", "custom.d.ts"],
   "exclude": ["build", "node_modules"]
 }
