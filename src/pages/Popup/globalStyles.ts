@@ -7,16 +7,21 @@ const GlobalStyles = createGlobalStyle`
     font-weight: normal;
     font-style: normal;
   }
+
+
 html,
 body,
-#root {
+#app-container {
   height: 100%;
 }
 
-body {
+html {
   width: 590px;
   height: 387px;
+  overflow: hidden;
 }
+
+
 
 * {
   box-sizing: border-box;

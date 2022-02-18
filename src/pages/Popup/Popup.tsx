@@ -1,9 +1,8 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import TodoInsert from './components/TodoInsert';
-import TodoList from './components/TodoList';
 import GlobalStyles from './globalStyles';
+import MainPage from './page/MainPage';
 
 export interface TodoType {
   id: number;
@@ -32,17 +31,21 @@ function executeScript(callback: any) {
   }
 }
 
-const Popup = () => {
-  const [todos, setTodos] = useState<TodoType[]>([]);
+function Popup(): ReactElement {
+  const [isLogin, setIsLogin] = useState(false);
 
-  const login = (): void => {
-    if (chrome?.runtime?.sendMessage) {
-      chrome.runtime.sendMessage({
-        cmd: 'openTab',
-        url: 'https://dotoriham.com/login',
-      });
+  useEffect(() => {
+    const userToken = localStorage.getItem('userToken');
+    if (userToken) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    console.log('isLogin', isLogin);
+  }, [isLogin]);
 
   useEffect(() => {
     const fetch = () => {
@@ -72,51 +75,16 @@ const Popup = () => {
     getFolderData();
   }, []);
 
-  const onInsert = (text: string) => {
-    const todo = {
-      id: Date.now(),
-      text,
-      done: false,
-    };
-    setTodos(todos.concat(todo));
-  };
-
-  const onToggle = (id: number) => {
-    console.log(id);
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, done: !todo.done } : todo,
-      ),
-    );
-  };
-
-  const onRemove = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
   return (
-    <PopupBlock>
+    <PopupContainer>
       <GlobalStyles />
-      <div className="title">오늘 할일sd</div>
-      <button onClick={login}>로그인</button>
-      <TodoInsert onInsert={onInsert} />
-      <TodoList todos={todos} onToggle={onToggle} onRemove={onRemove} />
-    </PopupBlock>
+      <MainPage isLogin={isLogin} />
+    </PopupContainer>
   );
-};
+}
 
-const PopupBlock = styled.div`
-  .title {
-    width: 100%;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    background: #22b8cf;
-    color: #fff;
-    font-weight: 600;
-  }
+const PopupContainer = styled.div`
+  height: 100%;
 `;
 
 export default Popup;
