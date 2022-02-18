@@ -10,7 +10,11 @@ import useFolderListQuery from '../hooks/useFolderListQuery';
 import { scrollbar } from '../lib/styles/utilStyles';
 import FolderItemIcon from './FolderItemIcon';
 
-function FolderListBox(): ReactElement {
+interface FolderListBoxProps {
+  onSelectFolder: (folderId: ItemId) => void;
+}
+
+function FolderListBox({ onSelectFolder }: FolderListBoxProps): ReactElement {
   const { data } = useFolderListQuery();
   const [folders, setFolders] = useState<TreeData>({
     rootId: '',
@@ -49,19 +53,19 @@ function FolderListBox(): ReactElement {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <FolderItemBlock
-            active={false}
-            onMouseDown={() =>
-              item.isExpanded && item.children.length > 0 && onCollapse(item.id)
-            }
-          >
+          <FolderItemBlock active={false}>
             <FolderLeftBox>
               <FolderItemIcon
                 item={item}
                 onCollapse={onCollapse}
                 onExpand={onExpand}
               />
-              <FolderTitle active={false}>{item.data.name}</FolderTitle>
+              <FolderTitle
+                active={false}
+                onClick={() => onSelectFolder(item.id)}
+              >
+                {item.data.name}
+              </FolderTitle>
             </FolderLeftBox>
           </FolderItemBlock>
         </FolderItemWrapper>

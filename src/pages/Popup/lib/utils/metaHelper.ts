@@ -9,11 +9,18 @@ const getCheckedOgImageLink = (url: string, ogImage: string): string => {
     : `${(expExecUrl.exec(url) as Array<string>)[0]}${ogImage}`;
 };
 
+export interface MetaData {
+  title: string;
+  description: string;
+  image: string;
+  url: string;
+}
+
 export const getMetaDataByUrl = async (
   url: string,
 ): Promise<{
   title: string;
-  ogImage: string;
+  image: string;
   url: string;
   description: string;
 }> => {
@@ -28,7 +35,7 @@ export const getMetaDataByUrl = async (
     $("meta[property='og:description']").attr('content') || '';
   return {
     title,
-    ogImage,
+    image: ogImage,
     url,
     description,
   };

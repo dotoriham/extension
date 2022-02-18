@@ -1,5 +1,7 @@
-import React, { ReactElement, useEffect } from 'react';
+import { ItemId } from '@atlaskit/tree';
+import React, { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { createDotoriAPI } from '../lib/api/dotori';
 import { getMetaDataByUrl } from '../lib/utils/metaHelper';
 import DotoriInputBox from './DotoriInputBox';
 import FolderListBox from './FolderListBox';
@@ -10,17 +12,39 @@ interface DotoriFormProps {
 
 function DotoriForm({ currentPageUrl }: DotoriFormProps): ReactElement {
   const metaData = getMetaDataByUrl(currentPageUrl);
+  const [metaInfo, setMetaInfo] = useState({
+    title: '',
+    description: '',
+    url: '',
+    image: '',
+  });
+  const [selectedFolderId, setSelectedFolderId] = useState<ItemId>('');
+
+  const onSelectFolder = (folderId: ItemId) => {
+    setSelectedFolderId(folderId);
+  };
 
   useEffect(() => {
-    metaData.then((res) => console.log('meta', res));
+    metaData.then((res) => setMetaInfo(res));
   }, [currentPageUrl]);
+
+  const onSave = async () => {
+    try {
+      console.log('api 쏜다!', metaInfo, selectedFolderId);
+      await createDotoriAPI(metaInfo, selectedFolderId);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  console.log(metaInfo);
 
   return (
     <DotoriFormBlock>
       <DotoriInputBox />
       <FolderForm>
-        <FolderListBox />
-        <SaveButton>저장하기</SaveButton>
+        <FolderListBox onSelectFolder={onSelectFolder} />
+        <SaveButton onClick={onSave}>저장하기</SaveButton>
       </FolderForm>
     </DotoriFormBlock>
   );
