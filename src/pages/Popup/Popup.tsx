@@ -50,7 +50,9 @@ function Popup(): ReactElement {
         console.log('response', response);
         console.log('url', url);
         setCurrentPageUrl(url);
-        localStorage.setItem('userToken', JSON.stringify(response));
+        if (response.accessToken) {
+          localStorage.setItem('userToken', JSON.stringify(response));
+        }
       });
     };
 
