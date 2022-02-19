@@ -12,9 +12,13 @@ import FolderItemIcon from './FolderItemIcon';
 
 interface FolderListBoxProps {
   onSelectFolder: (folderId: ItemId) => void;
+  selectedFolderId: ItemId;
 }
 
-function FolderListBox({ onSelectFolder }: FolderListBoxProps): ReactElement {
+function FolderListBox({
+  onSelectFolder,
+  selectedFolderId,
+}: FolderListBoxProps): ReactElement {
   const { data } = useFolderListQuery();
   const [folders, setFolders] = useState<TreeData>({
     rootId: '',
@@ -53,7 +57,14 @@ function FolderListBox({ onSelectFolder }: FolderListBoxProps): ReactElement {
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <FolderItemBlock active={false}>
+          <FolderItemBlock
+            active={selectedFolderId === item.id}
+            onClick={() =>
+              item.children.length > 0 && item.isExpanded
+                ? onCollapse(item.id)
+                : onExpand(item.id)
+            }
+          >
             <FolderLeftBox>
               <FolderItemIcon
                 item={item}

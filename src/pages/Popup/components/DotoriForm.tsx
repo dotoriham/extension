@@ -39,6 +39,10 @@ function DotoriForm({ currentPageUrl }: DotoriFormProps): ReactElement {
   }, [currentPageUrl]);
 
   const onSave = async () => {
+    if (selectedFolderId === '') {
+      alert('폴더를 선택해주세요');
+      return;
+    }
     try {
       await createDotoriAPI(metaInfo, remind, selectedFolderId);
       setSuccessSave(true);
@@ -63,7 +67,10 @@ function DotoriForm({ currentPageUrl }: DotoriFormProps): ReactElement {
       />
       <DividerColumn />
       <FolderForm>
-        <FolderListBox onSelectFolder={onSelectFolder} />
+        <FolderListBox
+          onSelectFolder={onSelectFolder}
+          selectedFolderId={selectedFolderId}
+        />
         <SaveButton onClick={onSave}>저장하기</SaveButton>
       </FolderForm>
     </DotoriFormBlock>
