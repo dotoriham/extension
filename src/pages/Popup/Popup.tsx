@@ -37,7 +37,7 @@ function Popup(): ReactElement {
       setIsLogin(true);
     } else {
       setIsLogin(false);
-    } 
+    }
   }, []);
 
   useEffect(() => {
@@ -52,6 +52,7 @@ function Popup(): ReactElement {
         setCurrentPageUrl(url);
         if (response.accessToken) {
           localStorage.setItem('userToken', JSON.stringify(response));
+          setIsLogin(true);
         }
       });
     };
