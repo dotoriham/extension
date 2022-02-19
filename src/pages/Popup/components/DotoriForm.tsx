@@ -20,10 +20,18 @@ function DotoriForm({ currentPageUrl }: DotoriFormProps): ReactElement {
     url: '',
     image: '',
   });
-  const [selectedFolderId, setSelectedFolderId] = useState<ItemId>('');
 
+  const { title, image } = metaInfo;
+  const [remind, setRemind] = useState(false);
+  const onToggleRemind = () => setRemind(!remind);
+
+  const [selectedFolderId, setSelectedFolderId] = useState<ItemId>('');
   const onSelectFolder = (folderId: ItemId) => {
     setSelectedFolderId(folderId);
+  };
+
+  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setMetaInfo({ ...metaInfo, title: e.target.value });
   };
 
   useEffect(() => {
@@ -32,8 +40,7 @@ function DotoriForm({ currentPageUrl }: DotoriFormProps): ReactElement {
 
   const onSave = async () => {
     try {
-      console.log('api 쏜다!', metaInfo, selectedFolderId);
-      await createDotoriAPI(metaInfo, selectedFolderId);
+      await createDotoriAPI(metaInfo, remind, selectedFolderId);
       setSuccessSave(true);
       setTimeout(() => {
         setSuccessSave(false);
@@ -47,7 +54,14 @@ function DotoriForm({ currentPageUrl }: DotoriFormProps): ReactElement {
 
   return (
     <DotoriFormBlock>
-      <DotoriInputBox />
+      <DotoriInputBox
+        title={title}
+        image={image}
+        remind={remind}
+        onChangeTitle={onChangeTitle}
+        onToggleRemind={onToggleRemind}
+      />
+      <DividerColumn />
       <FolderForm>
         <FolderListBox onSelectFolder={onSelectFolder} />
         <SaveButton onClick={onSave}>저장하기</SaveButton>
@@ -73,6 +87,12 @@ const SaveButton = styled.button`
   border-radius: 6px;
   color: #fff;
   font-size: 14px;
+`;
+
+const DividerColumn = styled.div`
+  margin: 24px 0;
+  width: 1px;
+  background-color: #f3f2ef;
 `;
 
 export default DotoriForm;
