@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import styled from 'styled-components';
-import GlobalStyles from './globalStyles';
+import GlobalStyles from './lib/styles/globalStyles';
 import getTokens from './lib/getTokens';
 import MainPage from './page/MainPage';
 
@@ -37,7 +37,7 @@ function Popup(): ReactElement {
       setIsLogin(true);
     } else {
       setIsLogin(false);
-    }
+    } 
   }, []);
 
   useEffect(() => {
@@ -56,24 +56,7 @@ function Popup(): ReactElement {
       });
     };
 
-    const getFolderData = async () => {
-      const userToken = localStorage.getItem('userToken');
-      if (userToken) {
-        const { accessToken, refreshToken } = JSON.parse(userToken);
-        const res = await axios.get(
-          `https://dotoriham.duckdns.org/api/v1/page/main?page=0&size=9&sort=saveTime,desc&remind=false`,
-          {
-            headers: {
-              accessToken: `Bearer ${accessToken}`,
-              refreshToken: `Bearer ${refreshToken}`,
-            },
-          },
-        );
-        console.log('찐', res);
-      }
-    };
     fetch();
-    getFolderData();
   }, []);
 
   const queryClient = new QueryClient();

@@ -10,8 +10,3 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     });
   }
 });
-
-// chrome.scripting.executeScript({
-//   target: { tabId: id, allFrames: true },
-//   files: ['content_scripts/cscript.js'],
-// });
