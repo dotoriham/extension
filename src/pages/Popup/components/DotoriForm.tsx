@@ -5,12 +5,14 @@ import { createDotoriAPI } from '../lib/api/dotori';
 import { getMetaDataByUrl } from '../lib/utils/metaHelper';
 import DotoriInputBox from './DotoriInputBox';
 import FolderListBox from './FolderListBox';
+import SuccessSaveDotori from './SuccessSaveDotori';
 
 interface DotoriFormProps {
   currentPageUrl: string;
 }
 
 function DotoriForm({ currentPageUrl }: DotoriFormProps): ReactElement {
+  const [successSave, setSuccessSave] = useState(false);
   const metaData = getMetaDataByUrl(currentPageUrl);
   const [metaInfo, setMetaInfo] = useState({
     title: '',
@@ -32,12 +34,16 @@ function DotoriForm({ currentPageUrl }: DotoriFormProps): ReactElement {
     try {
       console.log('api 쏜다!', metaInfo, selectedFolderId);
       await createDotoriAPI(metaInfo, selectedFolderId);
+      setSuccessSave(true);
+      setTimeout(() => {
+        setSuccessSave(false);
+      }, 3000);
     } catch (e) {
       console.log(e);
     }
   };
 
-  console.log(metaInfo);
+  if (successSave) return <SuccessSaveDotori />;
 
   return (
     <DotoriFormBlock>
