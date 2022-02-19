@@ -1,7 +1,7 @@
 {
-  "name": "chrome-extension-boilerplate-react",
+  "name": "dotoriham",
   "version": "4.0.1",
-  "description": "A chrome extension boilerplate built with React 17 and Webpack 5",
+  "description": "흩어진 북마크를 보관하고 공유하고 알림을 받아보세요",
   "license": "MIT",
   "repository": {
     "type": "git",
