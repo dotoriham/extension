@@ -1,14 +1,10 @@
 {
   "manifest_version": 3,
   "name": "Dotoriham",
-  "options_page": "options.html",
   "background": { "service_worker": "background.bundle.js" },
   "action": {
     "default_popup": "popup.html",
     "default_icon": "icon-34.png"
-  },
-  "chrome_url_overrides": {
-    "newtab": "newtab.html"
   },
   "host_permissions": ["http://*/*", "https://*/*"],
   "permissions": ["activeTab", "scripting"],
@@ -22,7 +18,6 @@
       "css": ["content.styles.css"]
     }
   ],
-  "devtools_page": "devtools.html",
   "web_accessible_resources": [
     {
       "resources": ["content.styles.css", "icon-128.png", "icon-34.png"],
