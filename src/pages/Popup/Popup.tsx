@@ -33,22 +33,12 @@ function Popup(): ReactElement {
 
   useEffect(() => {
     const userToken = localStorage.getItem('userToken');
-    if (userToken) {
-      setIsLogin(true);
-    } else {
-      setIsLogin(false);
-    }
+    setIsLogin(userToken ? true : false);
   }, []);
-
-  useEffect(() => {
-    console.log('isLogin', isLogin);
-  }, [isLogin]);
 
   useEffect(() => {
     const fetch = () => {
       executeScript(async function (response: any, url: string) {
-        console.log('response', response);
-        console.log('url', url);
         setCurrentPageUrl(url);
         if (response.accessToken) {
           localStorage.setItem('userToken', JSON.stringify(response));
