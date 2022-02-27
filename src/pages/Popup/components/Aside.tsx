@@ -1,19 +1,20 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { HOME_ICON, MAIN_URL } from '../lib/constants';
 
 function Aside(): ReactElement {
   const goDotoriHam = () => {
     if (chrome?.runtime?.sendMessage) {
       chrome.runtime.sendMessage({
         cmd: 'openTab',
-        url: 'https://dotoriham.com/',
+        url: MAIN_URL,
       });
     }
   };
 
   return (
     <AsideBlock onClick={goDotoriHam}>
-      <HomeImage src="https://i.ibb.co/zmc2Vcy/Home-24.png" />
+      <HomeImage src={HOME_ICON} />
       <AsideLinked>도토리함 가기</AsideLinked>
     </AsideBlock>
   );

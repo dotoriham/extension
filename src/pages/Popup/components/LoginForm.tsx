@@ -1,12 +1,13 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { MAIN_URL, SYMBOL_ICON } from '../lib/constants';
 
 function LoginForm(): ReactElement {
   const goLogin = () => {
     if (chrome?.runtime?.sendMessage) {
       chrome.runtime.sendMessage({
         cmd: 'openTab',
-        url: 'https://dotoriham.com/login',
+        url: `${MAIN_URL}/login`,
       });
     }
   };
@@ -15,14 +16,14 @@ function LoginForm(): ReactElement {
     if (chrome?.runtime?.sendMessage) {
       chrome.runtime.sendMessage({
         cmd: 'openTab',
-        url: 'https://dotoriham.com/register',
+        url: `${MAIN_URL}/register`,
       });
     }
   };
 
   return (
     <LoginFormBlock>
-      <Logo src="https://i.ibb.co/XfBmgYb/Group-1698.png" />
+      <Logo src={SYMBOL_ICON} />
       <LogoText>로그인 후 사용하실 수 있어요!</LogoText>
       <LoginButtonGroups>
         <LoginButton onClick={goLogin}>로그인</LoginButton>

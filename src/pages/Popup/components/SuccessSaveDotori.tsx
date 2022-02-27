@@ -1,10 +1,11 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { SYMBOL_ICON } from '../lib/constants';
 
 function SuccessSaveDotori(): ReactElement {
   return (
     <SuccessSaveDotoriStyled>
-      <Logo src="https://i.ibb.co/XfBmgYb/Group-1698.png" />
+      <Logo src={SYMBOL_ICON} />
       <LogoText>도토리가 저장되었어요!</LogoText>
     </SuccessSaveDotoriStyled>
   );

@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
+import { FOLDER_ICON } from '../lib/constants';
 
 interface FolderEmojiProps {
   emoji?: string;
@@ -26,7 +27,7 @@ function FolderEmoji({ emoji }: FolderEmojiProps): ReactElement {
       {emoji ? (
         <EmojiIcon>{unifiedToNative(emoji)}</EmojiIcon>
       ) : (
-        <FolderIconStyled src="https://images.velog.io/images/ksmfou98/post/bfced404-c12b-4fc7-98d0-05ce7a36f2de/Folder_16.png" />
+        <FolderIconStyled src={FOLDER_ICON} />
       )}
     </>
   );

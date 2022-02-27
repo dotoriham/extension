@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react';
 import { ItemId, TreeItem } from '@atlaskit/tree';
 import FolderEmoji from './FolderEmoji';
 import styled from 'styled-components';
+import { ARROW_DOWN_ICON, ARROW_SIDE_ICON } from '../lib/constants';
 
 interface FolderItemIconProps {
   item: TreeItem;
@@ -43,9 +44,9 @@ function FolderItemIcon({
         }
       >
         {item.isExpanded ? (
-          <Image src="https://images.velog.io/images/ksmfou98/post/47ee02fd-78f1-43b6-81d9-881d6e3b3ffa/Arrow_down_s.png" />
+          <Image src={ARROW_DOWN_ICON} />
         ) : (
-          <Image src="https://images.velog.io/images/ksmfou98/post/1d15c5b9-70eb-4b16-b20f-b15c8f602cf1/Arrow_side_s.png" />
+          <Image src={ARROW_SIDE_ICON} />
         )}
       </ArrowButton>
       <FolderEmoji emoji={item.data.emoji} />

@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { BELL_SELECTED_ICON, BELL_UNSELECTED_ICON } from '../lib/constants';
 
 interface DotoriInputBox {
   title: string;
@@ -41,11 +42,7 @@ function DotoriInputBox({
 
         <RemindImgBox remind={remind} onClick={onToggleRemind}>
           <RemindImage
-            src={
-              remind
-                ? 'https://i.ibb.co/XSrKhLZ/Bell-selected.png'
-                : 'https://i.ibb.co/X4VYcPH/Bell-unselected.png'
-            }
+            src={remind ? BELL_SELECTED_ICON : BELL_UNSELECTED_ICON}
           />
           <span>{remind ? 'on' : 'off'}</span>
         </RemindImgBox>
