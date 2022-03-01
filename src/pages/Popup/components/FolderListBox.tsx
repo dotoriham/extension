@@ -72,8 +72,11 @@ function FolderListBox({
                 onExpand={onExpand}
               />
               <FolderTitle
-                active={false}
-                onClick={() => onSelectFolder(item.id)}
+                active={selectedFolderId === item.id}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onSelectFolder(item.id);
+                }}
               >
                 {item.data.name}
               </FolderTitle>
