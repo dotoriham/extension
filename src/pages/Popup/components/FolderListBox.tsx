@@ -7,6 +7,7 @@ import Tree, {
 import React, { ReactElement, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import useFolderListQuery from '../hooks/useFolderListQuery';
+import { PLUS_ICON } from '../lib/constants';
 import { scrollbar } from '../lib/styles/utilStyles';
 import FolderItemIcon from './FolderItemIcon';
 
@@ -81,6 +82,15 @@ function FolderListBox({
                 {item.data.name}
               </FolderTitle>
             </FolderLeftBox>
+
+            <FolderRightBox
+              className="right"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <FolderAddButton onClick={() => console.log('더하기')}>
+                <img src={PLUS_ICON} alt="더하기 버튼" />
+              </FolderAddButton>
+            </FolderRightBox>
           </FolderItemBlock>
         </FolderItemWrapper>
       </>
@@ -174,6 +184,13 @@ const FolderTitle = styled.span<{ active: boolean }>`
       font-weight: 500;
       color: #48bf91;
     `}
+`;
+
+const FolderAddButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
 `;
 
 export default FolderListBox;
