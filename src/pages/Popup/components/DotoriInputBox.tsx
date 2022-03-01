@@ -1,6 +1,10 @@
 import React, { ReactElement, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { BELL_SELECTED_ICON, BELL_UNSELECTED_ICON } from '../lib/constants';
+import {
+  BELL_SELECTED_ICON,
+  BELL_UNSELECTED_ICON,
+  DEFAULT_ICON,
+} from '../lib/constants';
 
 interface DotoriInputBox {
   title: string;
@@ -19,6 +23,8 @@ function DotoriInputBox({
 }: DotoriInputBox): ReactElement {
   const inputRef = useRef<HTMLInputElement>(null);
 
+  console.log('imgae', image);
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -28,7 +34,13 @@ function DotoriInputBox({
   return (
     <DotoriInputBoxStyled>
       <ImageBox>
-        <Image src={image} />
+        {image ? (
+          <Image src={image} alt="썸네일" />
+        ) : (
+          <DefaultImage>
+            <img src={DEFAULT_ICON} alt="기본 이미지" />
+          </DefaultImage>
+        )}
       </ImageBox>
       <TitleInput
         ref={inputRef}
@@ -66,6 +78,15 @@ const Image = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+`;
+
+const DefaultImage = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #f8ffed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const TitleInput = styled.input`

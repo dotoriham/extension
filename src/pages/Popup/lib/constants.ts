@@ -13,3 +13,4 @@ export const ARROW_DOWN_ICON =
 export const ARROW_SIDE_ICON =
   'https://images.velog.io/images/ksmfou98/post/1d15c5b9-70eb-4b16-b20f-b15c8f602cf1/Arrow_side_s.png';
 export const SYMBOL_ICON = 'https://i.ibb.co/XfBmgYb/Group-1698.png';
+export const DEFAULT_ICON = 'https://i.ibb.co/806SKzh/Symbol-36.png';
