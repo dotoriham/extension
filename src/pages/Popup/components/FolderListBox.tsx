@@ -4,16 +4,27 @@ import Tree, {
   RenderItemParams,
   TreeData,
 } from '@atlaskit/tree';
+import produce from 'immer';
 import React, { ReactElement, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import useFolderListQuery from '../hooks/useFolderListQuery';
+import { createFolderAPI } from '../lib/api/folder';
 import { PLUS_ICON } from '../lib/constants';
 import { scrollbar } from '../lib/styles/utilStyles';
+import { findChildrenLengthById } from '../lib/utils/atlaskitTreeFinder';
 import FolderItemIcon from './FolderItemIcon';
 
 interface FolderListBoxProps {
   onSelectFolder: (folderId: ItemId) => void;
   selectedFolderId: ItemId;
+}
+
+interface IFolderItem {
+  id: ItemId;
+  children: ItemId[];
+  data: {
+    name: string;
+  };
 }
 
 function FolderListBox({
@@ -37,12 +48,58 @@ function FolderListBox({
     setFolders(data);
   }, [data]);
 
+  // 새로운 폴더 데이터 생성
+  const createNewFolderData = (folderId: ItemId, name: string) => {
+    return {
+      id: folderId,
+      children: [],
+      data: {
+        name,
+      },
+    };
+  };
+
+  // 새로운 폴더 데이터를 현재 폴더 리스트에 추가
+  const addNewDataInFolders = (
+    folderId: ItemId,
+    parentId: ItemId,
+    newData: IFolderItem,
+  ) => {
+    setFolders((prev) =>
+      produce(prev, (draft) => {
+        const newObj = draft;
+        newObj.items[folderId] = newData;
+        newObj.items[parentId].children.push(folderId);
+        if (parentId !== 'root') {
+          newObj.items[parentId].isExpanded = true;
+        }
+      }),
+    );
+  };
+
   const onExpandFolder = (itemId: ItemId) => {
     setFolders(mutateTree(folders, itemId, { isExpanded: true }));
   };
 
   const onCollapseFolder = (itemId: ItemId) => {
     setFolders(mutateTree(folders, itemId, { isExpanded: false }));
+  };
+
+  const onCreateFolder = async (parentId: ItemId) => {
+    const folderChildrenLength = findChildrenLengthById(folders, parentId);
+    const requestBody = {
+      parentId,
+      name: '제목없음',
+      index: folderChildrenLength,
+    };
+
+    try {
+      const { folderId } = await createFolderAPI(requestBody);
+      const newFolderData = createNewFolderData(folderId, requestBody.name);
+      addNewDataInFolders(folderId, parentId, newFolderData);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const renderFolderItem = ({
@@ -87,7 +144,7 @@ function FolderListBox({
               className="right"
               onClick={(e) => e.stopPropagation()}
             >
-              <FolderAddButton onClick={() => console.log('더하기')}>
+              <FolderAddButton onClick={() => onCreateFolder(item.id)}>
                 <img src={PLUS_ICON} alt="더하기 버튼" />
               </FolderAddButton>
             </FolderRightBox>
