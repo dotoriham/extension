@@ -47,7 +47,7 @@ function DotoriForm({ currentPageUrl }: DotoriFormProps): ReactElement {
       await createDotoriAPI(metaInfo, remind, selectedFolderId);
       setSuccessSave(true);
       setTimeout(() => {
-        setSuccessSave(false);
+        chrome.extension.getViews({ type: 'popup' })[0].close();
       }, 3000);
     } catch (e) {
       console.log(e);
