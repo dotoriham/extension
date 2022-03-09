@@ -23,8 +23,6 @@ function DotoriInputBox({
 }: DotoriInputBox): ReactElement {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  console.log('imgae', image);
-
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();

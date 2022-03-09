@@ -15,3 +15,4 @@ export const ARROW_SIDE_ICON =
 export const SYMBOL_ICON = 'https://i.ibb.co/XfBmgYb/Group-1698.png';
 export const DEFAULT_ICON = 'https://i.ibb.co/806SKzh/Symbol-36.png';
 export const PLUS_ICON = 'https://i.ibb.co/PhFrPHf/Plus.png';
+export const LOADING_ICON = 'https://i.ibb.co/0VvhYSc/loading.webp';

@@ -13,7 +13,6 @@ interface DotoriFormProps {
 
 function DotoriForm({ currentPageUrl }: DotoriFormProps): ReactElement {
   const [successSave, setSuccessSave] = useState(false);
-  const metaData = getMetaDataByUrl(currentPageUrl);
   const [metaInfo, setMetaInfo] = useState({
     title: '',
     description: '',
@@ -35,7 +34,11 @@ function DotoriForm({ currentPageUrl }: DotoriFormProps): ReactElement {
   };
 
   useEffect(() => {
-    metaData.then((res) => setMetaInfo(res));
+    const getMetaData = async () => {
+      const res = await getMetaDataByUrl(currentPageUrl);
+      setMetaInfo(res);
+    };
+    getMetaData();
   }, [currentPageUrl]);
 
   const onSave = async () => {
