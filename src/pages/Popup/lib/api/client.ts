@@ -58,7 +58,7 @@ client.interceptors.response.use(
             accessToken: data.accessToken,
             refreshToken: data.refreshToken,
           };
-          localStorage.setItem('userToken', JSON.stringify(newTokens));
+          localStorage.setItem('DOTORI_USER', JSON.stringify(newTokens));
           axios.defaults.headers.common.accessToken = `Bearer ${data.accessToken}`;
           axios.defaults.headers.common.refreshToken = `Bearer ${data.refreshToken}`;
           originalRequest.headers.accessToken = `Bearer ${data.accessToken}`;
@@ -66,7 +66,7 @@ client.interceptors.response.use(
           // 401로 요청 실패했던 요청 새로운 accessToken으로 재요청
           return axios(originalRequest);
         } catch (e) {
-          localStorage.removeItem('userToken');
+          localStorage.removeItem('DOTORI_USER');
           chrome.extension.getViews({ type: 'popup' })[0].location.reload();
         }
         break;

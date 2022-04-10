@@ -1,5 +1,5 @@
 function getTokens() {
-  const userToken = localStorage.getItem('userToken') || '';
+  const userToken = localStorage.getItem('DOTORI_USER') || '';
   return JSON.parse(userToken);
 }
 

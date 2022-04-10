@@ -34,7 +34,7 @@ function Popup(): ReactElement {
   const [currentPageUrl, setCurrentPageUrl] = useState('');
 
   useEffect(() => {
-    const userToken = localStorage.getItem('userToken');
+    const userToken = localStorage.getItem('DOTORI_USER');
     setIsLogin(userToken ? true : false);
   }, []);
 
@@ -43,7 +43,7 @@ function Popup(): ReactElement {
       executeScript(async function (response: any, url: string) {
         setCurrentPageUrl(url);
         if (response.accessToken) {
-          localStorage.setItem('userToken', JSON.stringify(response));
+          localStorage.setItem('DOTORI_USER', JSON.stringify(response));
           setIsLogin(true);
         }
       });
