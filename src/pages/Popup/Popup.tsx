@@ -12,9 +12,7 @@ export interface TodoType {
   done: boolean;
 }
 
-function executeScript(
-  callback: (response: any, url: string) => Promise<void>,
-) {
+function executeScript(callback: (url: string) => Promise<void>) {
   if (chrome?.tabs?.query) {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tab) {
       const tabId = tab[0].id;
@@ -22,7 +20,7 @@ function executeScript(
       exec(
         { target: { tabId: tabId! }, function: getTokens },
         function (response) {
-          callback && callback(response[0].result, tab[0].url!); // 있을 경우에만 리턴하도록 설정 없으면 아무것도 리턴 안하니간 local에 저장 안될테니 걱정 ㄴㄴ;
+          callback && callback(tab[0].url!); // 있을 경우에만 리턴하도록 설정 없으면 아무것도 리턴 안하니간 local에 저장 안될테니 걱정 ㄴㄴ;
         },
       );
     });
@@ -34,18 +32,17 @@ function Popup(): ReactElement {
   const [currentPageUrl, setCurrentPageUrl] = useState('');
 
   useEffect(() => {
-    const userToken = localStorage.getItem('DOTORI_USER');
-    setIsLogin(userToken ? true : false);
+    chrome.storage.local.get(['DOTORI_USER'], function (result) {
+      const userToken = result.DOTORI_USER;
+      setIsLogin(userToken ? true : false);
+      localStorage.setItem('DOTORI_USER', JSON.stringify(userToken));
+    });
   }, []);
 
   useEffect(() => {
     const fetch = () => {
-      executeScript(async function (response: any, url: string) {
+      executeScript(async function (url: string) {
         setCurrentPageUrl(url);
-        if (response.accessToken) {
-          localStorage.setItem('DOTORI_USER', JSON.stringify(response));
-          setIsLogin(true);
-        }
       });
     };
 
