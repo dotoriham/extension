@@ -42,10 +42,6 @@ function DotoriForm({ currentPageUrl }: DotoriFormProps): ReactElement {
   }, [currentPageUrl]);
 
   const onSave = async () => {
-    if (selectedFolderId === '') {
-      alert('폴더를 선택해주세요');
-      return;
-    }
     try {
       await createDotoriAPI(metaInfo, remind, selectedFolderId);
       setSuccessSave(true);
