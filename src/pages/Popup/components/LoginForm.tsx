@@ -3,23 +3,8 @@ import styled from 'styled-components';
 import { MAIN_URL, SYMBOL_ICON } from '../lib/constants';
 
 function LoginForm(): ReactElement {
-  const goLogin = () => {
-    if (chrome?.runtime?.sendMessage) {
-      chrome.runtime.sendMessage({
-        cmd: 'openTab',
-        url: `${MAIN_URL}/login`,
-      });
-    }
-  };
-
-  const goSignup = () => {
-    if (chrome?.runtime?.sendMessage) {
-      chrome.runtime.sendMessage({
-        cmd: 'openTab',
-        url: `${MAIN_URL}/register`,
-      });
-    }
-  };
+  const goLogin = () => window.open(`${MAIN_URL}/login`, '_blank');
+  const goSignup = () => window.open(`${MAIN_URL}/register`, '_blank');
 
   return (
     <LoginFormBlock>

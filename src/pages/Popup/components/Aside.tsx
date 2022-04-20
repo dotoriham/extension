@@ -3,14 +3,7 @@ import styled from 'styled-components';
 import { HOME_ICON, MAIN_URL } from '../lib/constants';
 
 function Aside(): ReactElement {
-  const goDotoriHam = () => {
-    if (chrome?.runtime?.sendMessage) {
-      chrome.runtime.sendMessage({
-        cmd: 'openTab',
-        url: MAIN_URL,
-      });
-    }
-  };
+  const goDotoriHam = () => window.open(MAIN_URL, '_blank');
 
   return (
     <AsideBlock onClick={goDotoriHam}>
