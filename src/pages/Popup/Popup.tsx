@@ -33,10 +33,15 @@ function Popup(): ReactElement {
 
   useEffect(() => {
     chrome.storage.local.get(['DOTORI_USER'], function (result) {
-      const userToken = result.DOTORI_USER;
-      setIsLogin(userToken ? true : false);
-      localStorage.setItem('DOTORI_USER', JSON.stringify(userToken));
+      const user = result.DOTORI_USER;
+      localStorage.setItem('DOTORI_USER', JSON.stringify(user));
     });
+  }, []);
+
+  useEffect(() => {
+    const user = localStorage.getItem('DOTORI_USER') || '';
+    const parseUser = JSON.parse(user);
+    setIsLogin(!!parseUser.accessToken);
   }, []);
 
   useEffect(() => {
