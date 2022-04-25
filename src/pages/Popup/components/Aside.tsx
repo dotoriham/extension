@@ -1,13 +1,14 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import { HOME_ICON, MAIN_URL } from '../lib/constants';
+import { Symbol32Img } from '../../assets/img';
+import { MAIN_URL } from '../lib/constants';
 
 function Aside(): ReactElement {
   const goDotoriHam = () => window.open(MAIN_URL, '_blank');
 
   return (
     <AsideBlock onClick={goDotoriHam}>
-      <HomeImage src={HOME_ICON} />
+      <HomeImage src={Symbol32Img} />
       <AsideLinked>도토리함 가기</AsideLinked>
     </AsideBlock>
   );
