@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
-import { Symbol32Img } from '../../assets/img';
+import { ArrowBig16Img, Symbol32Img } from '../../assets/img';
 import { MAIN_URL } from '../lib/constants';
 
 function Aside(): ReactElement {
@@ -8,8 +8,12 @@ function Aside(): ReactElement {
 
   return (
     <AsideBlock onClick={goDotoriHam}>
-      <HomeImage src={Symbol32Img} />
-      <AsideLinked>도토리함 가기</AsideLinked>
+      <ImageBox>
+        <ArrowImage src={ArrowBig16Img} />
+        <SymbolImage src={Symbol32Img} />
+      </ImageBox>
+      <AsideLinked>도토리함</AsideLinked>
+      <AsideLinked>GO</AsideLinked>
     </AsideBlock>
   );
 }
@@ -22,16 +26,27 @@ const AsideBlock = styled.div`
   background-color: #48bf91;
 `;
 
-const HomeImage = styled.img`
-  display: block;
-  margin-bottom: 8px;
-  width: 24px;
-  height: 24px;
+const ImageBox = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
 `;
 
-const AsideLinked = styled.span`
+const ArrowImage = styled.img`
+  margin-top: 2px;
+  margin-right: 2px;
+`;
+
+const SymbolImage = styled.img`
+  display: block;
+`;
+
+const AsideLinked = styled.div`
   color: #ffffff;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 6px;
+  height: 21px;
 `;
 
 export default Aside;
