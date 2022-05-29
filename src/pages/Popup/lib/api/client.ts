@@ -36,9 +36,11 @@ client.interceptors.response.use(
       config,
       response: { status },
     } = error;
+    console.log('에러출력', typeof error.response.status);
 
     switch (status) {
       case 401:
+        console.log('401');
         const originalRequest = config;
         const tokens = getTokens();
         if (!tokens) throw new Error('No tokens found');
@@ -67,6 +69,7 @@ client.interceptors.response.use(
           return axios(originalRequest);
         } catch (e) {
           localStorage.removeItem('DOTORI_USER');
+          chrome.storage.local.clear();
           chrome.extension.getViews({ type: 'popup' })[0].location.reload();
         }
         break;
