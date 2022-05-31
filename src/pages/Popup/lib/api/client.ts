@@ -36,11 +36,9 @@ client.interceptors.response.use(
       config,
       response: { status },
     } = error;
-    console.log('에러출력', typeof error.response.status);
 
     switch (status) {
       case 401:
-        console.log('401');
         const originalRequest = config;
         const tokens = getTokens();
         if (!tokens) throw new Error('No tokens found');
