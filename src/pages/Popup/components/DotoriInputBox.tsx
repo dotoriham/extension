@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect, useRef } from 'react';
+import TextareaAutosize from 'react-textarea-autosize';
 import styled from 'styled-components';
 import {
   BELL_SELECTED_ICON,
@@ -8,24 +9,35 @@ import {
 
 interface DotoriInputBox {
   title: string;
+  description: string;
   image: string;
   remind: boolean;
   onChangeTitle: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeDescription: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onToggleRemind: () => void;
 }
 
 function DotoriInputBox({
   image,
   title,
+  description,
+  onChangeDescription,
   onChangeTitle,
   remind,
   onToggleRemind,
 }: DotoriInputBox): ReactElement {
   const inputRef = useRef<HTMLInputElement>(null);
+  const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (descriptionRef.current) {
+      descriptionRef.current.style.height = '62px'; // textarea 라이브러리가 초기 값을 인라인 css로 강제로 설정해논걸 없애기 위해서 이 방식 썼음
     }
   }, []);
 
@@ -43,9 +55,16 @@ function DotoriInputBox({
       <TitleInput
         ref={inputRef}
         type="text"
-        placeholder="제목을 입력해주세요"
+        placeholder="og:title"
         value={title}
         onChange={onChangeTitle}
+      />
+
+      <DescriptionInput
+        ref={descriptionRef}
+        placeholder="og:description"
+        value={description}
+        onChange={onChangeDescription}
       />
       <ReminderBox>
         <RemindText>리마인드 on/off</RemindText>
@@ -94,6 +113,19 @@ const TitleInput = styled.input`
   font-size: 12px;
   padding: 5px 12px 6px 8px;
   outline: none;
+  margin-bottom: 8px;
+`;
+
+const DescriptionInput = styled(TextareaAutosize)`
+  resize: none;
+  outline: none;
+  width: 100%;
+  font-size: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  padding: 5px 12px 6px 8px;
+  font-family: 'Noto Sans KR', sans-serif;
 `;
 
 const ReminderBox = styled.div`

@@ -1,6 +1,6 @@
 {
   "name": "dotoriham",
-  "version": "4.0.10",
+  "version": "4.0.11",
   "description": "흩어진 북마크를 보관하고 공유하고 알림을 받아보세요",
   "license": "MIT",
   "repository": {
@@ -28,6 +28,7 @@
     "react-hot-loader": "^4.13.0",
     "react-icons": "^4.2.0",
     "react-query": "^3.34.15",
+    "react-textarea-autosize": "^8.3.4",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {

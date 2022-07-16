@@ -20,7 +20,7 @@ function DotoriForm({ currentPageUrl }: DotoriFormProps): ReactElement {
     image: '',
   });
 
-  const { title, image } = metaInfo;
+  const { title, image, description } = metaInfo;
   const [remind, setRemind] = useState(false);
   const onToggleRemind = () => setRemind(!remind);
 
@@ -31,6 +31,10 @@ function DotoriForm({ currentPageUrl }: DotoriFormProps): ReactElement {
 
   const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMetaInfo({ ...metaInfo, title: e.target.value });
+  };
+
+  const onChangeDescription = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setMetaInfo({ ...metaInfo, description: e.target.value });
   };
 
   useEffect(() => {
@@ -59,9 +63,11 @@ function DotoriForm({ currentPageUrl }: DotoriFormProps): ReactElement {
     <DotoriFormBlock>
       <DotoriInputBox
         title={title}
+        description={description}
         image={image}
         remind={remind}
         onChangeTitle={onChangeTitle}
+        onChangeDescription={onChangeDescription}
         onToggleRemind={onToggleRemind}
       />
       <DividerColumn />
