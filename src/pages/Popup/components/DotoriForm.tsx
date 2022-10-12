@@ -2,7 +2,7 @@ import { ItemId } from '@atlaskit/tree';
 import React, { ReactElement, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { createDotoriAPI } from '../lib/api/dotori';
-import { getMetaDataByUrl } from '../lib/utils/metaHelper';
+import { getMetaDataByUrl, MetaData } from '../lib/utils/metaHelper';
 import DotoriInputBox from './DotoriInputBox';
 import FolderListBox from './FolderListBox';
 import SuccessSaveDotori from './SuccessSaveDotori';
@@ -13,10 +13,10 @@ interface DotoriFormProps {
 
 function DotoriForm({ currentPageUrl }: DotoriFormProps): ReactElement {
   const [successSave, setSuccessSave] = useState(false);
-  const [metaInfo, setMetaInfo] = useState({
+  const [metaInfo, setMetaInfo] = useState<MetaData>({
     title: '',
     description: '',
-    url: '',
+    link: '',
     image: '',
   });
 

@@ -9,7 +9,7 @@ export const createDotoriAPI = async (
 ) => {
   const response = await client.post(`/api/v1/bookmark?folderId=${folderId}`, {
     title: meta.title,
-    url: meta.url,
+    link: meta.link,
     description: meta.description,
     image: meta.image,
     remind,
