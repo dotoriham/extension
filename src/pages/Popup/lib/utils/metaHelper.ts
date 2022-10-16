@@ -5,7 +5,7 @@ export interface MetaData {
   title: string;
   description: string;
   image: string;
-  url: string;
+  link: string;
 }
 
 export const getMetaDataByUrl = async (
@@ -13,7 +13,7 @@ export const getMetaDataByUrl = async (
 ): Promise<{
   title: string;
   image: string;
-  url: string;
+  link: string;
   description: string;
 }> => {
   const { data } = await axios.get(url);
@@ -25,7 +25,7 @@ export const getMetaDataByUrl = async (
   return {
     title,
     image: ogImage,
-    url,
+    link: url,
     description,
   };
 };
