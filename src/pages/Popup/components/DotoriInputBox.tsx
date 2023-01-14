@@ -55,14 +55,14 @@ function DotoriInputBox({
       <TitleInput
         ref={inputRef}
         type="text"
-        placeholder="og:title"
+        placeholder="제목을 입력하세요"
         value={title}
         onChange={onChangeTitle}
       />
 
       <DescriptionInput
         ref={descriptionRef}
-        placeholder="og:description"
+        placeholder="내용을 입력하세요"
         value={description}
         onChange={onChangeDescription}
       />

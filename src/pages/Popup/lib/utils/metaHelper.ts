@@ -18,10 +18,17 @@ export const getMetaDataByUrl = async (
 }> => {
   const { data } = await axios.get(url);
   const $ = cheerio.load(data as string);
-  const title = $('title').text() || '';
+  const title =
+    $('title').text() ||
+    $("meta[property='og:title']").attr('content') ||
+    $("meta[name='twitter:title']").attr('content') ||
+    '';
   const ogImage = $("meta[property='og:image']").attr('content') || '';
   const description =
-    $("meta[property='og:description']").attr('content') || '';
+    $('meta[name="description"]').attr('content') ||
+    $("meta[property='og:description']").attr('content') ||
+    $("meta[name='twitter:description']").attr('content') ||
+    '';
   return {
     title,
     image: ogImage,
